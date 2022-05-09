@@ -1,3 +1,7 @@
+Note: original project files are in V1 branch!
+
+To setup the main branch:
+
 Setup a mininet vm with version 2.2.2-170321 running ubutnu 14.04.4-server-amd64
 
 Read MPTCP for installing MPTCP kernel.
