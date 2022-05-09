@@ -1,0 +1,48 @@
+This was the process I followed to install the kernel. This was successful on Ubuntu 20LTS but
+not on Ubuntu 14 or 16. Thus, MPTCP was unable to be tested.
+
+Setting up MPTCP:
+
+https://multipath-tcp.org/pmwiki.php/Users/HowToInstallMPTCP?
+
+First we'll need to install the MPTCP kernel
+
+Download all .deb files for current release from: https://github.com/multipath-tcp/mptcp/releases
+
+Run the following two commands in the folder where you downloaded the files.
+sudo dpkg -i linux*.deb
+sudo apt-get install -f
+
+Once you do that, it will automatically try to an an entry in grub. Depending on how you setup your
+envrionment this may or may not work. I installed my ubuntu instance on a separate usb device from my main
+laptop internal drive. I already had grub configured on my laptop so I had to boot into my main distro
+(Arch Linux) and run grub customizer with os-prober enabled to add an entry in my main grub boot loader.
+
+Once you are able to see the ubuntu mptcp version of linux in grub, go ahead and boot into it.
+I immediately performed an upgrade:
+sudo apt-get update
+sudo apt-get upgrade
+
+I had an issue where my wifi card was "too new" for this version of the linux kernel and to not waste time
+attemping to debug it, i just plugged in via ethernet.
+
+Open up a terminal instance and run:
+sudo sysctl -a | grep mptcp
+
+If you get output that looks like this:
+kernel.osrelease = 4.19.234.mptcp
+net.mptcp.mptcp_checksum = 1
+net.mptcp.mptcp_debug = 0
+net.mptcp.mptcp_enabled = 1
+net.mptcp.mptcp_path_manager = fullmesh
+net.mptcp.mptcp_scheduler = default
+net.mptcp.mptcp_syn_retries = 3
+net.mptcp.mptcp_version = 0
+
+Then you are all set and ready to run tests.
+
+http://csie.nqu.edu.tw/smallko/sdn/mptcp-test.htm
+
+https://gist.github.com/tovask/316f0dc855f2459042af403688590a7f
+
+https://github.com/stainleebakhla/mininet-flow-generator
