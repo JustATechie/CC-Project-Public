@@ -1,0 +1,73 @@
+How to setup OpenDayLight:
+
+1. Create a fresh Ubuntu installation (either on vm or physical; in these directions I used a physical installation so you may need to adapt certain parts)
+
+2. Install git using: sudo apt-get install git
+
+3. install curl using: sudo apt install curl
+
+3. install java using: sudo apt-get install openjdk-8-jdk
+
+4. download ODL using:
+curl -O https://nexus.opendaylight.org/content/repositories/opendaylight.release/org/opendaylight/integration/distribution-karaf/0.6.0-Carbon/distribution-karaf-0.6.0-Carbon.zip
+
+5. perform the following:
+sudo cp distribution-karaf-0.6.0-Carbon.zip /opt/
+cd /opt/
+sudo unzip distribution-karaf-0.6.0-Carbon.zip
+sudo mv distribution-karaf-0.6.0-Carbon odl
+
+this will unzip and move the ODL download into a folder called odl within /opt/
+
+6. set your java home
+sudo nano /etc/environment
+
+add the following below your PATH:
+
+JAVA_HOME="/usr/lib/jvm/java-1.8.0-openjdk-amd64/jre/"
+
+you may need to reboot after this step.
+
+7. return to the /opt/odl/ folder and run odl!
+cd /opt/odl/
+sudo ./bin/karaf
+
+8. you'll now be greeted with the ODL interface. Perform the following commands:
+feature:install odl-dluxapps-applications odl-netvirt-openstack odl-mdsal-all odl-l2switch-all
+feature:install odl-restconf odl-l2switch-switch odl-mdsal-apidocs
+
+odl-netvirt-openstack
+odl-mdsal-all
+odl-l2switch-all
+
+troubleshooting:
+if for whatever reason you are having issues with ODL you can run:
+sudo ./bin/karaf clean
+
+this will start ODL and remove all previously installed features.
+
+
+Ports:
+You will need to open ports:
+6653 and 8181 on this machine.
+
+To do so you must run:
+sudo ufw allow 6653
+sudo ufw allow 8181
+(this is of course assuming ufw is enabled.)
+
+Port 6653 is what mininet will use to connect to ODL.
+Port 8181 is what we will connect to in a web interface to see the ODL visualizer.
+
+Finalizing:
+At this point you should be able to go to:
+http://localhost:8181/index.html#/topology
+on the machine Ubuntu is running on to see the visualizer.
+
+Alternatively, if you have opened port 8181 on this machine you can connect to:
+http://[ODL IP Address]:8181/index.html#/topology
+to see the visualizer on another machine in the same network.
+
+Login info:
+user: admin
+password: admin

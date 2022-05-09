@@ -1,0 +1,36 @@
+JHU Cloud Computing 2022
+
+This project attempts to implement a number of TCP flavors over a few different topologies to see which
+is most efficient per protocol flavor.
+
+How to run:
+cd src/setup/
+python startup.py [topology][protocol][logging level]
+
+where topology can be:
+'-1': Test Topo
+'0': Fat Tree
+'1': Leaf-Spine
+'2': Super-Spine
+'3': Super-Spine
+
+where protocol can be:
+'0': TCP
+'1': STCP
+'2': DCTCP
+'3': MPTCP
+
+where logging level can be:
+none: warnings and errors
+'0': info
+'1': debug
+
+Note about logging: error codes are always preceded with an error log.
+
+ERROR CODE INFO:
+1: Invalid topology argument
+2: Invalid protocol argument
+3: Invalid logging level argument
+
+These will output flows between the furthest hosts as a csv file which can be parsed into a chart.
+

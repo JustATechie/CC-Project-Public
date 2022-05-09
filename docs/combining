@@ -1,0 +1,21 @@
+How to link ODL and Mininet:
+
+1. follow all directions in ODL and Mininet docs.
+
+2. Obtain the ip address of your ODL instance. I used a separate machine to host my ODL instance and gave it a static route in my home network.
+
+3. Make sure you have allowed interal network access to port 6653 on your ODL machine. This is the port mininet will use to connect to ODL.
+3.1: is ufw is enabled, running: sudo ufw allow 6653 will work!
+
+4. run the following command on your mininet machine:
+sudo mn --controller=remote,ip=[ODL IP Address],port=6653 --topo=tree,1,3 --mac --switch ovsk,protocols=OpenFlow13
+
+for example, on my setup I run:
+sudo mn --controller=remote,ip=192.168.1.239,port=6653 --topo=tree,1,3 --mac --switch ovsk,protocols=OpenFlow13
+
+5. you can now run pingall to test your configuration. if all packets are dropped, try running:
+telnet [ODL IP Address] 6653
+
+If telnet is able to connect, then you have verified that your port is properly setup.
+
+If you are still having issues, go through the directions again.

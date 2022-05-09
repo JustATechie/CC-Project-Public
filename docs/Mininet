@@ -1,0 +1,36 @@
+How to setup Mininet:
+
+1. Create a fresh Ubuntu installation (either on vm or physical; in these directions I used a physical installation so you may need to adapt certain parts)
+
+2. Install openvswitch using: sudo apt install openvswitch-switch
+
+3. run the following to enable openvswitch on startup.
+
+2. Install git using: sudo apt-get install git
+
+2. Clone the mininet repo using:
+
+git clone https://github.com/mininet/mininet
+
+3. Perform the following commands:
+cd mininet/
+git checkout -b mininet-2.3.0 2.3.0
+cd ..
+
+4. install mininet using:
+mininet/util/install.sh -a
+
+5. you can now run mininet using:
+sudo mn
+
+See "combining" doc for how to connect mininet to ODL.
+
+
+For tracking flow data between hosts, I also needed to setup wireshark.
+
+This is a simple one command run:
+sudo apt-get install wireshark
+
+To initialize and start wireshark:
+sudo wireshark &
+
